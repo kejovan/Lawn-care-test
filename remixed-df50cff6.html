@@ -112,10 +112,25 @@ h1.hero-h em{font-style:italic;color:var(--gold);}
 footer{position:relative;z-index:2;background:var(--charcoal);color:rgba(255,255,255,0.45);padding:30px 52px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px;}
 .flogo{font-family:'DM Serif Display',serif;font-size:18px;color:#fff;}
 @media(max-width:640px){nav{padding:13px 18px;}.nav-r .nl{display:none;}.sec{padding:64px 18px;}#booking{padding:64px 18px 64px;}.trust{gap:20px;padding:16px 20px;}.cpn{padding:32px 28px;}}
-/* loading spinner for images */
-.img-loading{display:flex;align-items:center;justify-content:center;background:rgba(26,74,26,0.08);}
-.img-loading::after{content:'';width:28px;height:28px;border:3px solid rgba(26,74,26,0.15);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
+/* SCROLL TRACKS */
+.scroll-track-wrap,.rev-track-wrap{overflow:hidden;width:100%;}
+.scroll-track{display:flex;gap:16px;width:max-content;animation:scrollLeft 32s linear infinite;}
+.scroll-track:hover{animation-play-state:paused;}
+.rev-track{display:flex;gap:20px;width:max-content;animation:scrollLeft 48s linear infinite;}
+.rev-track:hover{animation-play-state:paused;}
+@keyframes scrollLeft{0%{transform:translateX(0);}100%{transform:translateX(-50%)}}
+.scroll-item{flex-shrink:0;width:180px;text-align:center;}
+.scroll-img{width:180px;height:140px;border-radius:16px;display:block;object-fit:cover;margin-bottom:10px;transition:transform .3s;}
+.scroll-item:hover .scroll-img{transform:scale(1.04);}
+.scroll-cap{font-size:14px;font-weight:600;color:var(--charcoal);}
+/* REVIEW CARDS */
+.rev-card{flex-shrink:0;width:320px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:18px;padding:26px 24px;backdrop-filter:blur(8px);}
+.rev-stars{color:var(--gold-bright);font-size:16px;letter-spacing:2px;margin-bottom:12px;}
+.rev-text{font-size:14px;color:rgba(255,255,255,0.88);line-height:1.7;margin-bottom:18px;font-style:italic;}
+.rev-author{display:flex;align-items:center;gap:11px;}
+.rev-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;}
+.rev-author strong{display:block;font-size:14px;color:#fff;font-weight:600;}
+.rev-author span{font-size:12px;color:rgba(255,255,255,0.55);}
 </style>
 </head>
 <body>
@@ -132,10 +147,10 @@ footer{position:relative;z-index:2;background:var(--charcoal);color:rgba(255,255
 </div>
 
 <div class="bg-wrap" id="bgWrap">
-  <img class="bg-img bi1" src="img1.jpg" onload="this.classList.add('show')" style="object-fit:cover;">
-  <img class="bg-img bi2" src="img2.jpg" onload="this.classList.add('show')" style="object-fit:cover;">
-  <img class="bg-img bi3" src="img3.jpg" onload="this.classList.add('show')" style="object-fit:cover;">
-  <img class="bg-img bi4" src="img4.jpg" onload="this.classList.add('show')" style="object-fit:cover;transform:rotate(-2deg);">
+  <img class="bg-img bi1" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/Spencer-2-1024x682_hmbaoh.png" onload="this.classList.add('show')" style="object-fit:cover;">
+  <img class="bg-img bi2" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283035/7-4_fuynvv.jpg" onload="this.classList.add('show')" style="object-fit:cover;">
+  <img class="bg-img bi3" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/Lawn-Care-Projects_souq4u.webp" onload="this.classList.add('show')" style="object-fit:cover;">
+  <img class="bg-img bi4" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/6904da84d610d2415101eecd_FirstImpression_kgytue.jpg" onload="this.classList.add('show')" style="object-fit:cover;transform:rotate(-2deg);">
 </div>
 <div class="bg-fade"></div>
 
@@ -194,18 +209,85 @@ footer{position:relative;z-index:2;background:var(--charcoal);color:rgba(255,255
     <div class="divider rv"></div>
     <div class="wgrid">
       <div class="wcard rl" style="transition-delay:.05s">
-        <img class="wimg" src="img4.jpg" style="object-fit:cover;width:100%;aspect-ratio:4/3;display:block;">
+        <img class="wimg" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/t547fz763aomog3avqd6tgbdkd5r_opih0s.jpg" style="object-fit:cover;width:100%;aspect-ratio:4/3;display:block;">
         <div class="wlabel">🏡 Riverside, JAX</div>
       </div>
       <div class="wcard rr" style="transition-delay:.1s">
-        <img class="wimg" src="img5.jpg" style="object-fit:cover;width:100%;aspect-ratio:4/3;display:block;">
+        <img class="wimg" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/Spencer-2-1024x682_hmbaoh.png" style="object-fit:cover;width:100%;aspect-ratio:4/3;display:block;">
         <div class="wlabel">🏡 San Marco, JAX</div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sec" style="background:var(--green-pale);">
+<!-- PHOTO SCROLL -->
+<section class="sec" style="background:#fff;padding-top:80px;padding-bottom:80px;overflow:hidden;">
+  <div class="si">
+    <p class="eyebrow rv">Our Services</p>
+    <h2 class="sec-h rv">We do it all.</h2>
+    <div class="divider rv"></div>
+  </div>
+  <div class="scroll-track-wrap rv" style="margin-top:36px;position:relative;">
+    <div class="scroll-track" id="photoTrack">
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/Lawn-Care-Projects_souq4u.webp"><div class="scroll-cap">Bush Trimming</div></div>
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/Spencer-2-1024x682_hmbaoh.png"><div class="scroll-cap">Lawn Consultation</div></div>
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283035/7-4_fuynvv.jpg"><div class="scroll-cap">Our Work</div></div>
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/6904da84d610d2415101eecd_FirstImpression_kgytue.jpg"><div class="scroll-cap">Lawn Mowing</div></div>
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/t547fz763aomog3avqd6tgbdkd5r_opih0s.jpg"><div class="scroll-cap">Beautiful Results</div></div>
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/Lawn-Care-Projects_souq4u.webp"><div class="scroll-cap">Edging & Beds</div></div>
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/Spencer-2-1024x682_hmbaoh.png"><div class="scroll-cap">Yard Walkthrough</div></div>
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283035/7-4_fuynvv.jpg"><div class="scroll-cap">Gutter Cleaning</div></div>
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/6904da84d610d2415101eecd_FirstImpression_kgytue.jpg"><div class="scroll-cap">Full Cleanup</div></div>
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/t547fz763aomog3avqd6tgbdkd5r_opih0s.jpg"><div class="scroll-cap">Happy Customers</div></div>
+      <!-- duplicated for seamless loop -->
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/Lawn-Care-Projects_souq4u.webp"><div class="scroll-cap">Bush Trimming</div></div>
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/Spencer-2-1024x682_hmbaoh.png"><div class="scroll-cap">Lawn Consultation</div></div>
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283035/7-4_fuynvv.jpg"><div class="scroll-cap">Our Work</div></div>
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/6904da84d610d2415101eecd_FirstImpression_kgytue.jpg"><div class="scroll-cap">Lawn Mowing</div></div>
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/t547fz763aomog3avqd6tgbdkd5r_opih0s.jpg"><div class="scroll-cap">Beautiful Results</div></div>
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/Lawn-Care-Projects_souq4u.webp"><div class="scroll-cap">Edging & Beds</div></div>
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/Spencer-2-1024x682_hmbaoh.png"><div class="scroll-cap">Yard Walkthrough</div></div>
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283035/7-4_fuynvv.jpg"><div class="scroll-cap">Gutter Cleaning</div></div>
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/6904da84d610d2415101eecd_FirstImpression_kgytue.jpg"><div class="scroll-cap">Full Cleanup</div></div>
+      <div class="scroll-item"><img class="scroll-img" src="https://res.cloudinary.com/dnhageroq/image/upload/v1776283036/t547fz763aomog3avqd6tgbdkd5r_opih0s.jpg"><div class="scroll-cap">Happy Customers</div></div>
+    </div>
+    <div style="position:absolute;top:0;left:0;bottom:0;width:80px;background:linear-gradient(90deg,#fff,transparent);pointer-events:none;z-index:2;"></div>
+    <div style="position:absolute;top:0;right:0;bottom:0;width:80px;background:linear-gradient(270deg,#fff,transparent);pointer-events:none;z-index:2;"></div>
+  </div>
+</section>
+
+<!-- REVIEWS V2 -->
+<section class="rv2-section">
+  <div class="rv2-header">
+    <p class="eyebrow rv">What People Say</p>
+    <h2 class="sec-h rv">500+ happy yards<br>in Jacksonville.</h2>
+    <div class="divider rv" style="margin:20px auto;"></div>
+  </div>
+  <div class="rv2-track-wrap">
+    <div class="rv2-glow"></div>
+    <div class="rv2-glow-r"></div>
+    <div class="rv2-track">
+      <div class="rv2-card"><div class="rv2-stars">★★★★★</div><p class="rv2-text">"My yard has never looked this good. They show up on time, every time. Will never use anyone else."</p><div class="rv2-author"><div class="rv2-av" style="background:#2d6e2d;">JM</div><div><div class="rv2-name">James M.</div><div class="rv2-loc">Riverside, JAX</div></div></div></div>
+      <div class="rv2-card"><div class="rv2-stars">★★★★★</div><p class="rv2-text">"Hired them before a BBQ — lawn, edging, gutters. Absolutely flawless. My guests couldn't stop complimenting the yard."</p><div class="rv2-author"><div class="rv2-av" style="background:#1a4a8a;">ST</div><div><div class="rv2-name">Sarah T.</div><div class="rv2-loc">San Marco, JAX</div></div></div></div>
+      <div class="rv2-card"><div class="rv2-stars">★★★★★</div><p class="rv2-text">"My neighbors keep asking who does my yard. I never tell them 😄 Best service in Jacksonville."</p><div class="rv2-author"><div class="rv2-av" style="background:#8a3a00;">DR</div><div><div class="rv2-name">David R.</div><div class="rv2-loc">Mandarin, JAX</div></div></div></div>
+      <div class="rv2-card"><div class="rv2-stars">★★★★★</div><p class="rv2-text">"I've tried 3 other services. None compare. Professional, on time, zero mess. Worth every single penny."</p><div class="rv2-author"><div class="rv2-av" style="background:#6a1a6a;">KL</div><div><div class="rv2-name">Karen L.</div><div class="rv2-loc">Avondale, JAX</div></div></div></div>
+      <div class="rv2-card"><div class="rv2-stars">★★★★★</div><p class="rv2-text">"One gutter clean and I was so impressed I signed up for monthly service. These guys are the real deal."</p><div class="rv2-author"><div class="rv2-av" style="background:#005a5a;">MP</div><div><div class="rv2-name">Mike P.</div><div class="rv2-loc">Ortega, JAX</div></div></div></div>
+      <!-- dupe -->
+      <div class="rv2-card"><div class="rv2-stars">★★★★★</div><p class="rv2-text">"My yard has never looked this good. They show up on time, every time. Will never use anyone else."</p><div class="rv2-author"><div class="rv2-av" style="background:#2d6e2d;">JM</div><div><div class="rv2-name">James M.</div><div class="rv2-loc">Riverside, JAX</div></div></div></div>
+      <div class="rv2-card"><div class="rv2-stars">★★★★★</div><p class="rv2-text">"Hired them before a BBQ — lawn, edging, gutters. Absolutely flawless. My guests couldn't stop complimenting the yard."</p><div class="rv2-author"><div class="rv2-av" style="background:#1a4a8a;">ST</div><div><div class="rv2-name">Sarah T.</div><div class="rv2-loc">San Marco, JAX</div></div></div></div>
+      <div class="rv2-card"><div class="rv2-stars">★★★★★</div><p class="rv2-text">"My neighbors keep asking who does my yard. I never tell them 😄 Best service in Jacksonville."</p><div class="rv2-author"><div class="rv2-av" style="background:#8a3a00;">DR</div><div><div class="rv2-name">David R.</div><div class="rv2-loc">Mandarin, JAX</div></div></div></div>
+      <div class="rv2-card"><div class="rv2-stars">★★★★★</div><p class="rv2-text">"I've tried 3 other services. None compare. Professional, on time, zero mess. Worth every single penny."</p><div class="rv2-author"><div class="rv2-av" style="background:#6a1a6a;">KL</div><div><div class="rv2-name">Karen L.</div><div class="rv2-loc">Avondale, JAX</div></div></div></div>
+      <div class="rv2-card"><div class="rv2-stars">★★★★★</div><p class="rv2-text">"One gutter clean and I was so impressed I signed up for monthly service. These guys are the real deal."</p><div class="rv2-author"><div class="rv2-av" style="background:#005a5a;">MP</div><div><div class="rv2-name">Mike P.</div><div class="rv2-loc">Ortega, JAX</div></div></div></div>
+    </div>
+  </div>
+  <div class="rv2-total rv">
+    <div class="rv2-total-stars">★★★★★</div>
+    <div class="rv2-total-text">4.9 out of 5 — 500+ reviews</div>
+    <div class="rv2-total-sub">Google · Yelp · Facebook · Nextdoor</div>
+  </div>
+</section>
+
+<section class="sec" style="background:var(--green-pale);padding-top:80px;padding-bottom:80px;overflow:hidden;">
   <div class="si" style="text-align:center;">
     <p class="eyebrow rv">One Time Deal</p>
     <h2 class="sec-h rv" style="margin-bottom:36px;">Don't miss<br>this offer.</h2>
