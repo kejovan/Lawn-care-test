@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunshine Lawn Care — Jacksonville, FL</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --green:#1a4a1a;--green-mid:#2d6e2d;--green-light:#4a9a4a;--green-pale:#edf7ed;
+  --gold:#b8860b;--gold-light:#d4a017;--gold-bright:#f0b429;
+  --cream:#f8f8f4;--white:#ffffff;--charcoal:#1c1c1c;--text:#2a2a2a;--muted:#6b7280;--border:#e5e7eb;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;cursor:none;}
+#cur{position:fixed;z-index:9999;pointer-events:none;top:0;left:0;will-change:transform;}
+#cur svg{width:40px;height:40px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.28));}
+#cur.cut .blade-top{transform-origin:22px 20px;transform:rotate(18deg);transition:transform .08s;}
+#cur.cut .blade-bot{transform-origin:22px 20px;transform:rotate(-18deg);transition:transform .08s;}
+.blade-top,.blade-bot{transition:transform .12s;}
+#prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--green),var(--gold-bright));z-index:201;width:0;transition:width .08s;}
+.bg-wrap{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.bg-img{position:absolute;border-radius:18px;opacity:0;transition:opacity 1.4s ease;box-shadow:0 12px 48px rgba(0,0,0,0.14);background-size:cover;background-position:center;}
+.bg-img.show{opacity:1;}
+.bi1{width:420px;height:280px;top:7%;left:-60px;transform:rotate(-4deg);}
+.bi2{width:320px;height:220px;top:50%;left:-50px;transform:rotate(2.5deg);}
+.bi3{width:400px;height:270px;top:10%;right:-55px;transform:rotate(3.5deg);}
+.bi4{width:310px;height:210px;bottom:8%;right:-45px;transform:rotate(-2deg);}
+.bg-fade{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 55% 90% at 50% 50%,rgba(248,248,244,0.94) 20%,rgba(248,248,244,0.6) 65%,transparent 100%),linear-gradient(90deg,rgba(248,248,244,0.88) 0%,transparent 22%,transparent 78%,rgba(248,248,244,0.88) 100%);}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 52px;background:rgba(248,248,244,0.88);backdrop-filter:blur(18px);border-bottom:1px solid transparent;transition:all .35s;}
+nav.down{padding:12px 52px;border-color:rgba(0,0,0,0.07);box-shadow:0 2px 24px rgba(0,0,0,0.07);}
+.logo{font-family:'DM Serif Display',serif;font-size:21px;color:var(--green);display:flex;align-items:center;gap:9px;}
+.nav-r{display:flex;align-items:center;gap:22px;}
+.nl{font-size:14px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s;}
+.nl:hover{color:var(--green);}
+.nb{background:var(--green);color:#fff;padding:10px 26px;border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;box-shadow:0 2px 14px rgba(26,74,26,0.22);transition:all .22s;}
+.nb:hover{background:var(--green-mid);transform:translateY(-1px);}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1);}
+.rv.on{opacity:1;transform:translateY(0);}
+.rl{opacity:0;transform:translateX(-28px);transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1);}
+.rl.on{opacity:1;transform:translateX(0);}
+.rr{opacity:0;transform:translateX(28px);transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1);}
+.rr.on{opacity:1;transform:translateX(0);}
+.hero{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;}
+.badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-pale);border:1px solid rgba(26,74,26,0.15);color:var(--green);font-size:13px;font-weight:600;letter-spacing:.04em;padding:6px 20px;border-radius:100px;margin-bottom:28px;}
+h1.hero-h{font-family:'DM Serif Display',serif;font-size:clamp(54px,9.5vw,120px);line-height:.96;color:var(--green);margin-bottom:22px;}
+h1.hero-h em{font-style:italic;color:var(--gold);}
+.hero-p{font-size:clamp(16px,2vw,20px);color:var(--muted);max-width:460px;line-height:1.68;margin-bottom:44px;}
+.ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.cp{background:var(--green);color:#fff;padding:16px 44px;border-radius:100px;font-size:16px;font-weight:600;text-decoration:none;box-shadow:0 4px 22px rgba(26,74,26,0.28);transition:all .22s;}
+.cp:hover{background:var(--green-mid);transform:translateY(-2px);}
+.cs{background:#fff;color:var(--green);padding:16px 44px;border-radius:100px;font-size:16px;font-weight:600;text-decoration:none;border:1.5px solid rgba(26,74,26,0.18);transition:all .22s;}
+.cs:hover{border-color:var(--green);background:var(--green-pale);}
+.stars-r{display:flex;align-items:center;gap:7px;justify-content:center;margin-top:38px;}
+.stars{color:var(--gold-bright);font-size:19px;letter-spacing:1px;}
+.stars-t{font-size:14px;color:var(--muted);}
+.trust{position:relative;z-index:2;background:var(--green);padding:20px 52px;display:flex;align-items:center;justify-content:center;gap:44px;flex-wrap:wrap;}
+.ti{display:flex;align-items:center;gap:7px;color:rgba(255,255,255,0.9);font-size:14px;font-weight:500;}
+.sec{position:relative;z-index:2;padding:96px 52px;}
+.si{max-width:1060px;margin:0 auto;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--green-light);margin-bottom:12px;}
+.sec-h{font-family:'DM Serif Display',serif;font-size:clamp(34px,5vw,58px);color:var(--green);line-height:1.08;margin-bottom:14px;}
+.sec-p{font-size:17px;color:var(--muted);line-height:1.72;max-width:500px;}
+.divider{width:48px;height:3px;background:var(--gold);margin:20px 0;border-radius:2px;}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:14px;margin-top:52px;}
+.svc{background:#fff;border-radius:16px;padding:30px 26px;border:1px solid var(--border);transition:transform .26s,box-shadow .26s,border-color .26s;}
+.svc:hover{transform:translateY(-5px);box-shadow:0 14px 44px rgba(0,0,0,0.09);border-color:rgba(26,74,26,0.18);}
+.svc-ico{width:50px;height:50px;background:var(--green-pale);border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:23px;margin-bottom:16px;}
+.svc h3{font-family:'DM Serif Display',serif;font-size:19px;color:var(--charcoal);margin-bottom:7px;}
+.svc p{font-size:14px;color:var(--muted);line-height:1.6;}
+.svc-pr{margin-top:15px;font-size:14px;font-weight:600;color:var(--green-light);}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:52px;}
+@media(max-width:580px){.wgrid{grid-template-columns:1fr;}}
+.wcard{border-radius:16px;overflow:hidden;position:relative;box-shadow:0 4px 22px rgba(0,0,0,0.09);}
+.wimg{width:100%;aspect-ratio:4/3;display:block;background-size:cover;background-position:center;transition:filter .4s,transform .45s;filter:saturate(0.88) brightness(0.94);}
+.wcard:hover .wimg{filter:saturate(1.05) brightness(1);transform:scale(1.04);}
+.wlabel{position:absolute;bottom:14px;left:14px;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);padding:5px 14px;border-radius:100px;font-size:13px;font-weight:600;color:var(--green);}
+.cpn-wrap{display:flex;justify-content:center;padding-top:8px;}
+.cpn{position:relative;background:#fff;border:2.5px dashed var(--gold);border-radius:22px;padding:44px 60px;text-align:center;max-width:500px;width:100%;box-shadow:0 10px 48px rgba(184,134,11,0.13);overflow:hidden;transition:transform .2s,box-shadow .2s;}
+.cpn:hover{transform:scale(1.015);box-shadow:0 16px 60px rgba(184,134,11,0.22);}
+.cpn-scissors{position:absolute;top:13px;right:16px;font-size:14px;color:var(--gold);font-weight:700;letter-spacing:.1em;}
+.cpn-tag{display:inline-block;background:var(--green);color:#fff;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 16px;border-radius:100px;margin-bottom:16px;}
+.cpn-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--charcoal);margin-bottom:22px;}
+.prow{display:flex;align-items:center;justify-content:center;gap:22px;}
+.op{font-family:'DM Serif Display',serif;font-size:52px;color:#bbb;position:relative;line-height:1;}
+.op::after{content:'';position:absolute;top:50%;left:-6px;right:-6px;height:3.5px;background:var(--muted);transform:translateY(-50%) rotate(-6deg);border-radius:2px;}
+.np{font-family:'DM Serif Display',serif;font-size:80px;color:var(--green);line-height:1;}
+.np sup{font-size:30px;vertical-align:top;margin-top:14px;display:inline-block;}
+.cpn-sub{font-size:14px;color:var(--muted);margin-top:16px;line-height:1.65;}
+.cpn-btn{display:inline-block;margin-top:26px;background:var(--gold);color:#fff;padding:14px 40px;border-radius:100px;font-size:15px;font-weight:700;text-decoration:none;transition:all .2s;box-shadow:0 4px 22px rgba(184,134,11,0.32);}
+.cpn-btn:hover{background:var(--gold-bright);transform:scale(1.05);}
+.dot{position:absolute;border-radius:50%;opacity:.22;}
+#booking{background:var(--green);}
+#booking .eyebrow{color:rgba(255,255,255,0.55);}
+#booking .sec-h{color:#fff;}
+#booking .sec-p{color:rgba(255,255,255,0.65);}
+#booking .divider{background:var(--gold-bright);}
+.binner{max-width:640px;margin:0 auto;}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:48px;}
+@media(max-width:500px){.fgrid{grid-template-columns:1fr;}}
+.fl{display:flex;flex-direction:column;gap:5px;}
+.fl label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,0.55);}
+.fl input,.fl select,.fl textarea{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;padding:13px 16px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:15px;outline:none;transition:border-color .2s,background .2s;}
+.fl input::placeholder,.fl textarea::placeholder{color:rgba(255,255,255,0.38);}
+.fl input:focus,.fl select:focus,.fl textarea:focus{border-color:var(--gold-bright);background:rgba(255,255,255,0.15);}
+.fl select option{background:#1a4a1a;}
+.fl-full{grid-column:1/-1;}
+.fl textarea{height:108px;resize:none;}
+.bbtn{grid-column:1/-1;background:var(--gold);color:#fff;padding:18px;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:17px;font-weight:700;border:none;cursor:pointer;transition:all .22s;box-shadow:0 4px 22px rgba(184,134,11,0.38);position:relative;overflow:hidden;}
+.bbtn:hover{background:var(--gold-bright);transform:translateY(-2px);}
+footer{position:relative;z-index:2;background:var(--charcoal);color:rgba(255,255,255,0.45);padding:30px 52px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px;}
+.flogo{font-family:'DM Serif Display',serif;font-size:18px;color:#fff;}
+@media(max-width:640px){nav{padding:13px 18px;}.nav-r .nl{display:none;}.sec{padding:64px 18px;}#booking{padding:64px 18px 64px;}.trust{gap:20px;padding:16px 20px;}.cpn{padding:32px 28px;}}
+/* loading spinner for images */
+.img-loading{display:flex;align-items:center;justify-content:center;background:rgba(26,74,26,0.08);}
+.img-loading::after{content:'';width:28px;height:28px;border:3px solid rgba(26,74,26,0.15);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<div id="cur">
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="10" cy="10" r="7" fill="#1a4a1a"/><circle cx="10" cy="10" r="4" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/><circle cx="10" cy="10" r="1.8" fill="#b8860b"/>
+  <circle cx="10" cy="30" r="7" fill="#1a4a1a"/><circle cx="10" cy="30" r="4" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/><circle cx="10" cy="30" r="1.8" fill="#b8860b"/>
+  <g class="blade-top"><path d="M15 11 Q28 17 44 28" stroke="#1a4a1a" stroke-width="3.5" stroke-linecap="round"/></g>
+  <g class="blade-bot"><path d="M15 29 Q28 23 44 12" stroke="#1a4a1a" stroke-width="3.5" stroke-linecap="round"/></g>
+  <circle cx="22.5" cy="20" r="3" fill="#b8860b"/><circle cx="22.5" cy="20" r="1.2" fill="#f0b429"/>
+</svg>
+</div>
+
+<div class="bg-wrap" id="bgWrap">
+  <img class="bg-img bi1" src="img1.jpg" onload="this.classList.add('show')" style="object-fit:cover;">
+  <img class="bg-img bi2" src="img2.jpg" onload="this.classList.add('show')" style="object-fit:cover;">
+  <img class="bg-img bi3" src="img3.jpg" onload="this.classList.add('show')" style="object-fit:cover;">
+  <img class="bg-img bi4" src="img4.jpg" onload="this.classList.add('show')" style="object-fit:cover;transform:rotate(-2deg);">
+</div>
+<div class="bg-fade"></div>
+
+<nav id="navbar">
+  <div class="logo">🌿 Sunshine Lawn</div>
+  <div class="nav-r">
+    <a href="#services" class="nl">Services</a>
+    <a href="#work" class="nl">Our Work</a>
+    <a href="#booking" class="nb">Book Now</a>
+  </div>
+</nav>
+
+<div class="hero" style="position:relative;z-index:2;">
+  <div class="badge rv">📍 Jacksonville, FL</div>
+  <h1 class="hero-h rv" style="transition-delay:.08s">Your yard.<br><em>Perfected.</em></h1>
+  <p class="hero-p rv" style="transition-delay:.17s">We mow. We trim. We clean up.<br>You sit back and enjoy a beautiful yard.</p>
+  <div class="ctas rv" style="transition-delay:.26s">
+    <a href="#booking" class="cp">Get a Free Quote</a>
+    <a href="#services" class="cs">See Services</a>
+  </div>
+  <div class="stars-r rv" style="transition-delay:.35s">
+    <div class="stars">★★★★★</div>
+    <div class="stars-t">500+ happy yards in Jacksonville</div>
+  </div>
+</div>
+
+<div class="trust rv">
+  <div class="ti">✓ Same-Week Service</div>
+  <div class="ti">✓ Free Estimates</div>
+  <div class="ti">✓ Fully Insured</div>
+  <div class="ti">✓ 10+ Years Experience</div>
+  <div class="ti">✓ We Always Clean Up</div>
+</div>
+
+<section class="sec" id="services">
+  <div class="si">
+    <p class="eyebrow rv">What We Do</p>
+    <h2 class="sec-h rv">We take care<br>of your yard.</h2>
+    <div class="divider rv"></div>
+    <p class="sec-p rv">We do all the hard work. You enjoy the results.</p>
+    <div class="sgrid">
+      <div class="svc rv" style="transition-delay:.04s"><div class="svc-ico">✂️</div><h3>Lawn Mowing</h3><p>We cut your grass so it looks neat and clean every time.</p><div class="svc-pr">→ Starting at $35</div></div>
+      <div class="svc rv" style="transition-delay:.08s"><div class="svc-ico">🌿</div><h3>Edging & Trimming</h3><p>Sharp clean edges along your driveway, sidewalk, and beds.</p><div class="svc-pr">→ Included free</div></div>
+      <div class="svc rv" style="transition-delay:.12s"><div class="svc-ico">🍂</div><h3>Leaf Cleanup</h3><p>We pick up every leaf and bag it. Your yard stays spotless.</p><div class="svc-pr">→ Starting at $50</div></div>
+      <div class="svc rv" style="transition-delay:.16s"><div class="svc-ico">🌱</div><h3>Fertilizing</h3><p>We feed your grass so it grows thick and bright green.</p><div class="svc-pr">→ Starting at $60</div></div>
+      <div class="svc rv" style="transition-delay:.20s"><div class="svc-ico">🌳</div><h3>Bush Trimming</h3><p>Neat and tidy bushes and shrubs all year long.</p><div class="svc-pr">→ Starting at $45</div></div>
+      <div class="svc rv" style="transition-delay:.24s"><div class="svc-ico">🪣</div><h3>Mulch & Beds</h3><p>Fresh mulch makes your flower beds look brand new.</p><div class="svc-pr">→ Free quote</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="work" style="background:#fff;">
+  <div class="si">
+    <p class="eyebrow rv">Our Work</p>
+    <h2 class="sec-h rv">See what we can do<br>to your yard.</h2>
+    <div class="divider rv"></div>
+    <div class="wgrid">
+      <div class="wcard rl" style="transition-delay:.05s">
+        <img class="wimg" src="img4.jpg" style="object-fit:cover;width:100%;aspect-ratio:4/3;display:block;">
+        <div class="wlabel">🏡 Riverside, JAX</div>
+      </div>
+      <div class="wcard rr" style="transition-delay:.1s">
+        <img class="wimg" src="img5.jpg" style="object-fit:cover;width:100%;aspect-ratio:4/3;display:block;">
+        <div class="wlabel">🏡 San Marco, JAX</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="background:var(--green-pale);">
+  <div class="si" style="text-align:center;">
+    <p class="eyebrow rv">One Time Deal</p>
+    <h2 class="sec-h rv" style="margin-bottom:36px;">Don't miss<br>this offer.</h2>
+    <div class="cpn-wrap">
+      <div class="cpn rv" id="cpn">
+        <div class="dot" style="width:16px;height:16px;background:var(--gold);top:20px;left:26px;"></div>
+        <div class="dot" style="width:11px;height:11px;background:var(--green);bottom:26px;left:44px;"></div>
+        <div class="dot" style="width:13px;height:13px;background:var(--gold);bottom:32px;right:32px;"></div>
+        <div class="dot" style="width:9px;height:9px;background:var(--green);top:30px;right:48px;"></div>
+        <div class="cpn-scissors">✂ CLIP &amp; SAVE</div>
+        <span class="cpn-tag">First Visit Only</span>
+        <div class="cpn-title">Full Lawn Cleanup — Mow, Edge, Trim &amp; Clean</div>
+        <div class="prow"><div class="op">$100</div><div class="np"><sup>$</sup>75</div></div>
+        <div class="cpn-sub">Save $25 on your very first visit.<br>We mow, edge, trim, and clean up. All included.</div>
+        <a href="#booking" class="cpn-btn" id="cpn-btn">Claim This Deal →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="booking">
+  <div class="binner">
+    <p class="eyebrow rv">Get in Touch</p>
+    <h2 class="sec-h rv">Book your<br>free quote.</h2>
+    <div class="divider rv"></div>
+    <p class="sec-p rv">Fill this out. We call you back the same day. Fast and free.</p>
+    <form class="fgrid" onsubmit="handleBook(event)">
+      <div class="fl rv" style="transition-delay:.04s"><label>Your Name</label><input type="text" placeholder="John Smith" required></div>
+      <div class="fl rv" style="transition-delay:.08s"><label>Phone</label><input type="tel" placeholder="(904) 555-0100"></div>
+      <div class="fl rv" style="transition-delay:.12s"><label>Your Address</label><input type="text" placeholder="123 Oak St, Jacksonville FL"></div>
+      <div class="fl rv" style="transition-delay:.16s"><label>Service Needed</label>
+        <select><option disabled selected>Pick one…</option><option>Lawn Mowing</option><option>Edging & Trimming</option><option>Leaf Cleanup</option><option>Fertilizing</option><option>Bush Trimming</option><option>Full Yard Care</option><option>Not Sure — Just Call Me</option></select>
+      </div>
+      <div class="fl fl-full rv" style="transition-delay:.2s"><label>Anything else?</label><textarea placeholder="How big is your yard? Any special requests?"></textarea></div>
+      <button type="submit" class="bbtn rv" id="bbtn" style="transition-delay:.24s">Send My Free Quote Request →</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">🌿 Sunshine Lawn Care</div>
+  <div>📍 Jacksonville, FL &nbsp;·&nbsp; 📞 (904) 555-0123</div>
+  <div>© 2025 Sunshine Lawn Care. All rights reserved.</div>
+</footer>
+
+<script>
+// ── CURSOR ──
+const cur = document.getElementById('cur');
+let cx=0,cy=0,tx=200,ty=200;
+document.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;});
+(function loop(){cx+=(tx-cx)*.2;cy+=(ty-cy)*.2;cur.style.transform=`translate(${cx-6}px,${cy-6}px)`;requestAnimationFrame(loop);})();
+document.addEventListener('mousedown',()=>{cur.classList.add('cut');playSnip();});
+document.addEventListener('mouseup',()=>cur.classList.remove('cut'));
+
+// ── PROGRESS + SCROLL ──
+const prog=document.getElementById('prog'),navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{
+  prog.style.width=(window.scrollY/(document.body.scrollHeight-innerHeight)*100)+'%';
+  navbar.classList.toggle('down',window.scrollY>50);
+},{passive:true});
+
+// ── REVEAL ──
+const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');playPop();}});},{threshold:0.1});
+document.querySelectorAll('.rv,.rl,.rr').forEach(el=>ro.observe(el));
+
+// ── SOUND ──
+let ac=null;
+function gac(){if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();return ac;}
+function tone(f,d,type='sine',vol=0.1,delay=0){try{const a=gac(),o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.type=type;o.frequency.value=f;const t=a.currentTime+delay;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.start(t);o.stop(t+d);}catch(e){}}
+let lastPop=0;
+function playPop(){const n=Date.now();if(n-lastPop<280)return;lastPop=n;tone(500+Math.random()*250,.11,'sine',.07);}
+function playSnip(){tone(2000,.04,'sawtooth',.06);tone(2600,.035,'sawtooth',.05,.03);}
+function playHover(){tone(800,.06,'sine',.05);}
+function playCoupon(){[392,494,587,740,988].forEach((f,i)=>tone(f,.18,'sine',.09,i*.08));}
+function playSuccess(){[523,659,784,988,1319].forEach((f,i)=>tone(f,.22,'sine',.1,i*.09));}
+document.querySelectorAll('.svc,.cp,.cs,.nb,.wcard').forEach(el=>el.addEventListener('mouseenter',playHover));
+document.querySelectorAll('.cpn-btn').forEach(el=>el.addEventListener('mouseenter',playCoupon));
+
+// ── COUPON JIGGLE ──
+const cpnEl=document.getElementById('cpn');
+const cpnObs=new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting){
+    setTimeout(()=>{cpnEl.animate([{transform:'rotate(0) scale(1)'},{transform:'rotate(-1.5deg) scale(1.03)'},{transform:'rotate(1.8deg) scale(1.04)'},{transform:'rotate(-1.2deg) scale(1.03)'},{transform:'rotate(0) scale(1)'}],{duration:420,easing:'ease-in-out'});playCoupon();},350);
+    cpnObs.disconnect();
+  }
+},{threshold:0.55});
+cpnObs.observe(cpnEl);
+
+// ── BOOKING ──
+function handleBook(e){
+  e.preventDefault();
+  const btn=document.getElementById('bbtn');
+  btn.textContent='✅  Got it! We will call you today.';
+  btn.style.background='rgba(255,255,255,0.2)';
+  btn.style.border='1.5px solid rgba(255,255,255,0.5)';
+  btn.disabled=true;
+  playSuccess();confettiBurst();
+}
+
+// ── CONFETTI ──
+function confettiBurst(){
+  const cols=['#b8860b','#2d6e2d','#4a9a4a','#f0b429','#ffffff','#d4a017'];
+  for(let i=0;i<70;i++){
+    const el=document.createElement('div');
+    const s=5+Math.random()*9,isCircle=Math.random()>.45;
+    el.style.cssText=`position:fixed;z-index:9997;pointer-events:none;width:${s}px;height:${s}px;border-radius:${isCircle?'50%':'2px'};background:${cols[Math.floor(Math.random()*cols.length)]};left:${20+Math.random()*60}vw;top:${40+Math.random()*25}vh;opacity:1;`;
+    document.body.appendChild(el);
+    const dx=(Math.random()-.5)*300,dy=-(80+Math.random()*200),rot=(Math.random()-.5)*720;
+    el.animate([{transform:`translate(0,0) rotate(0deg)`,opacity:1},{transform:`translate(${dx}px,${dy}px) rotate(${rot}deg)`,opacity:0}],{duration:900+Math.random()*700,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'});
+    setTimeout(()=>el.remove(),2000);
+  }
+}
+
+
+if(innerWidth<640) document.getElementById('bgWrap').style.display='none';
+</script>
+</body>
+</html>
